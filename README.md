@@ -1,73 +1,67 @@
 # Sistema Web de Gestão Financeira Pessoal
 
-Projeto acadêmico da disciplina de Desenvolvimento de Aplicações Web I do IFTM.
+Projeto acadêmico da disciplina de Desenvolvimento de Aplicações Web I (DAW I) do IFTM, desenvolvido em dupla por Lucas Emmanuel e Rafaella Nunes.
 
-O sistema permitirá que cada usuário registre receitas e despesas, organize lançamentos por contas e categorias, defina limites mensais de gastos e acompanhe sua situação financeira por meio de dashboard e relatório em PDF.
+O sistema permite que cada usuário registre receitas e despesas em suas contas, classifique os lançamentos por categoria, defina orçamentos de gasto e gere um relatório mensal em PDF.
 
 ## Situação atual
 
-O projeto está na fase de pré-projeto e validação do tema, correspondente à Etapa 1 do trabalho final.
+- **Etapa 1** (tema e diagrama de classes simplificado): apresentada ao professor.
+- **Etapa 2** (classes do modelo): em andamento.
 
-O escopo recomendado prioriza:
+## Modelo de domínio
 
-- lançamentos de receitas e despesas;
-- contas e categorias financeiras;
-- orçamento mensal por categoria;
-- dashboard com receitas, despesas e saldo;
-- perfis `USER` e `ADMIN`;
-- CRUD administrativo de categorias;
-- relatório financeiro mensal em PDF com subreport de lançamentos;
-- investimentos apenas como extensão opcional após a conclusão do núcleo obrigatório.
+![Diagrama de classes simplificado](docs/diagrama-classes/diagrama-classes-final.png)
 
-## Tecnologias previstas
+O código é escrito em inglês. Os nomes do diagrama correspondem às classes assim: Usuário = `User`, Conta = `Account`, Lançamento = `Transaction`, Categoria = `Category` e Orçamento = `Budget`.
 
-- Java e Spring Boot
-- JPA e Hibernate
-- Spring Data
-- Flyway
-- Thymeleaf
-- htmx
-- Tailwind CSS
-- Spring Security e HTTPS
+É um diagrama de classes: cada seta indica que a classe de origem tem um atributo do tipo da classe de destino.
+
+- `Account` tem um `User`
+- `Budget` tem um `User` e uma `Category`
+- `Transaction` tem uma `Account` e uma `Category`
+
+O `User` tem o papel `USER` ou `ADMIN`. As categorias são cadastradas pelo ADMIN, e esse é o CRUD independente que o enunciado pede.
+
+## Tecnologias
+
+Java, Spring Boot, JPA/Hibernate, Spring Data, Flyway, Thymeleaf, htmx, Tailwind CSS e Spring Security com HTTPS.
 
 ## Documentação
 
-- [Relatório de pré-projeto](docs/pre-projeto/Relatorio-de-Pre-Projeto-Gestao-Financeira.docx)
-- [Índice da documentação](docs/README.md)
-- [Diagrama de classes simplificado](docs/pre-projeto/diagramas/01-diagrama-classes-simplificado.excalidraw)
-- [Fluxo de lançamento e orçamento](docs/pre-projeto/diagramas/02-fluxo-lancamento-orcamento.excalidraw)
-- [Navegação e telas](docs/pre-projeto/diagramas/03-diagrama-navegacao-telas.excalidraw)
-- [Arquitetura em camadas](docs/pre-projeto/diagramas/04-arquitetura-em-camadas.excalidraw)
+| Documento | Descrição |
+|---|---|
+| [Enunciado do trabalho](docs/enunciado-trabalho-final-daw1.pdf) | PDF enviado pelo professor com os requisitos e as etapas |
+| [Proposta do projeto](docs/proposta-do-projeto.md) | Tema, diagrama, como vamos atender cada requisito, tipos de usuário e lógica de negócio |
+| [Diagrama de classes](docs/diagrama-classes/) | Arquivo `.excalidraw` com o rascunho no papel, a Versão 01 e a Versão 02 (final) |
 
-Os diagramas podem ser abertos diretamente no [Excalidraw](https://excalidraw.com/) pela opção **Abrir**.
+O arquivo `.excalidraw` pode ser aberto em [excalidraw.com](https://excalidraw.com/), pela opção **Abrir**.
 
 ## Etapas do trabalho
 
-1. Aprovação do tema, integrantes e diagrama de classes simplificado.
-2. Implementação das classes do domínio.
-3. Mapeamento objeto-relacional e persistência.
-4. CRUD completo de Categoria.
-5. Lógica de negócio financeira e orçamento.
-6. Segurança, usuários, papéis e HTTPS.
-7. Relatório PDF com subreport.
+1. Tema, dupla e diagrama de classes simplificado.
+2. Implementação das classes do modelo.
+3. Mapeamento objeto-relacional (JPA).
+4. CRUD completo de `Category`.
+5. Lógica de negócio: lançamentos, saldo e orçamento.
+6. Segurança, cadastro de usuários e HTTPS.
+7. Relatório PDF com sub-relatório.
 8. Apresentação do sistema funcionando.
 
-## Estrutura atual
+## Estrutura do repositório
 
 ```text
 .
-├── docs
-│   ├── README.md
-│   └── pre-projeto
-│       ├── Relatorio-de-Pre-Projeto-Gestao-Financeira.docx
-│       └── diagramas
-│           ├── 01-diagrama-classes-simplificado.excalidraw
-│           ├── 02-fluxo-lancamento-orcamento.excalidraw
-│           ├── 03-diagrama-navegacao-telas.excalidraw
-│           └── 04-arquitetura-em-camadas.excalidraw
-├── .gitignore
+├── docs/
+│   ├── enunciado-trabalho-final-daw1.pdf
+│   ├── proposta-do-projeto.md
+│   └── diagrama-classes/
+│       ├── diagrama-classes.excalidraw
+│       ├── diagrama-classes-final.png
+│       └── diagrama-classes-evolucao.png
+├── financialmanagement/        # aplicação Spring Boot (Maven)
 ├── LICENSE
 └── README.md
 ```
 
-A estrutura da aplicação Spring Boot será adicionada nas próximas etapas, depois da aprovação do modelo pelo professor.
+Nos arquivos de documentação, os nomes usam letras minúsculas, palavras separadas por hífen e nenhum espaço ou acento.
