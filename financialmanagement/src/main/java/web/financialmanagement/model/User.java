@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String hashPassword;
-    private Role role;
+    private UserRole role;
     private boolean active;
 
     public Long getId() {
@@ -44,12 +44,12 @@ public class User implements Serializable {
         this.hashPassword = hashPassword;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(UserRole userRole) {
+        this.role = userRole;
     }
 
     public boolean isActive() {

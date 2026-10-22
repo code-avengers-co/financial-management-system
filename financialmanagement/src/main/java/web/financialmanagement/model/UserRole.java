@@ -1,6 +1,6 @@
 package web.financialmanagement.model;
 
-public enum Role {
+public enum UserRole {
     USER,
     ADMIN
 }
