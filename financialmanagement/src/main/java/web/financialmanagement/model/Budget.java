@@ -3,63 +3,61 @@ package web.financialmanagement.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Budget implements Serializable{
-
+public class Budget implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private BigDecimal limitAmout;
-    private int buggetMonth;
-    private int buggetYear;
+    private BigDecimal limitAmount;
+    private int budgetMonth;
+    private int budgetYear;
     private User user;
     private Category category;
 
-    private void setId(Long id){
+    private void setId(Long id) {
         this.id = id;
     }
 
-    private Long getId(){
-        return id;
+    private Long getId() {
+        return this.id;
     }
 
-    private void setLimitAmout(BigDecimal limitAmout){
-        this.limitAmout = limitAmout;
+    private void setLimitAmount(BigDecimal limitAmount) {
+        this.limitAmount = limitAmount;
     }
 
-    private BigDecimal getLimitAmout(){
-        return limitAmout;
+    private BigDecimal getLimitAmount() {
+        return this.limitAmount;
     }
 
-    private void setBuggetMonth(int buggetMonth){
-        this.buggetMonth = buggetMonth;
+    private void setBudgetMonth(int budgetMonth) {
+        this.budgetMonth = budgetMonth;
     }
 
-    private int getBuggetMonth(){
-        return buggetMonth;
+    private int getBudgetMonth() {
+        return this.budgetMonth;
     }
 
-    private void setBuggetYear(int buggetYear){
-        this.buggetYear = buggetYear;
+    private void setBudgetYear(int budgetYear) {
+        this.budgetYear = budgetYear;
     }
 
-    private int getBuggetYear(){
-        return buggetYear;
+    private int getBudgetYear() {
+        return this.budgetYear;
     }
 
-    private void setUser(User user){
+    private void setUser(User user) {
         this.user = user;
     }
 
-    private User getUser(){
-        return user;
+    private User getUser() {
+        return this.user;
     }
 
-    private void setCategory(Category category){
+    private void setCategory(Category category) {
         this.category = category;
     }
 
-    private Category getCategory(){
-        return category;
+    private Category getCategory() {
+        return this.category;
     }
-
 }
