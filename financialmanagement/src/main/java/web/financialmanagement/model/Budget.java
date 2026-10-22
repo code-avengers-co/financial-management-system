@@ -13,51 +13,51 @@ public class Budget implements Serializable {
     private User user;
     private Category category;
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    private Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    private void setLimitAmount(BigDecimal limitAmount) {
+    public void setLimitAmount(BigDecimal limitAmount) {
         this.limitAmount = limitAmount;
     }
 
-    private BigDecimal getLimitAmount() {
+    public BigDecimal getLimitAmount() {
         return this.limitAmount;
     }
 
-    private void setBudgetMonth(int budgetMonth) {
+    public void setBudgetMonth(int budgetMonth) {
         this.budgetMonth = budgetMonth;
     }
 
-    private int getBudgetMonth() {
+    public int getBudgetMonth() {
         return this.budgetMonth;
     }
 
-    private void setBudgetYear(int budgetYear) {
+    public void setBudgetYear(int budgetYear) {
         this.budgetYear = budgetYear;
     }
 
-    private int getBudgetYear() {
+    public int getBudgetYear() {
         return this.budgetYear;
     }
 
-    private void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    private User getUser() {
+    public User getUser() {
         return this.user;
     }
 
-    private void setCategory(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    private Category getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 }
