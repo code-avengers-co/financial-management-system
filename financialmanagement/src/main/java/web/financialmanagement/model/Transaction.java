@@ -23,7 +23,6 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-
     public String getDescription() {
         return description;
     }
