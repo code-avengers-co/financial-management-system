@@ -1,23 +1,16 @@
 package web.financialmanagement.model;
 
 import java.io.Serializable;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
-
- 
-public class User implements Serializable{
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String hashPassword;
-    private String role;
-    private Boolean active;
+    private Role role;
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -30,7 +23,7 @@ public class User implements Serializable{
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
@@ -50,20 +43,20 @@ public class User implements Serializable{
     public void setHashPassword(String hashPassword) {
         this.hashPassword = hashPassword;
     }
-    
-    public String getRole() {
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public Boolean isActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }
