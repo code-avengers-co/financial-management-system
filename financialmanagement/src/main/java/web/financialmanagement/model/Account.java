@@ -36,7 +36,7 @@ public class Account implements Serializable {
         this.initialBalance = initialBalance;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
