@@ -33,9 +33,10 @@ Java, Spring Boot, JPA/Hibernate, Spring Data, Flyway, Thymeleaf, htmx, Tailwind
 |---|---|
 | [Enunciado do trabalho](docs/enunciado-trabalho-final-daw1.pdf) | PDF enviado pelo professor com os requisitos e as etapas |
 | [Proposta do projeto](docs/proposta-do-projeto.md) | Tema, diagrama, como vamos atender cada requisito, tipos de usuário e lógica de negócio |
-| [Diagrama de classes](docs/diagrama-classes/) | Arquivo `.excalidraw` com o rascunho no papel, a Versão 01 e a Versão 02 (final) |
+| [Diagrama de classes](docs/diagrama-classes/diagrama-classes.excalidraw) | Diagrama simplificado da Etapa 1: rascunho no papel, Versão 01 e Versão 02 (final) |
+| [Diagrama de implementação](docs/diagrama-classes/diagrama-classes-implementacao.excalidraw) | Classes em inglês com atributos e tipos, usado na Etapa 2 |
 
-O arquivo `.excalidraw` pode ser aberto em [excalidraw.com](https://excalidraw.com/), pela opção **Abrir**.
+Os arquivos `.excalidraw` podem ser abertos em [excalidraw.com](https://excalidraw.com/), pela opção **Abrir**.
 
 ## Etapas do trabalho
 
@@ -57,6 +58,7 @@ O arquivo `.excalidraw` pode ser aberto em [excalidraw.com](https://excalidraw.c
 │   ├── proposta-do-projeto.md
 │   └── diagrama-classes/
 │       ├── diagrama-classes.excalidraw
+│       ├── diagrama-classes-implementacao.excalidraw
 │       ├── diagrama-classes-final.png
 │       └── diagrama-classes-evolucao.png
 ├── financialmanagement/        # aplicação Spring Boot (Maven)
