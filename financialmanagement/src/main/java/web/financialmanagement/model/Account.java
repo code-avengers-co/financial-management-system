@@ -9,7 +9,7 @@ public class Account implements Serializable {
     private Long id;
     private String name;
     private BigDecimal initialBalance;
-    private Boolean active;
+    private boolean active;
     private User user;
 
     public Long getId() {
@@ -36,11 +36,11 @@ public class Account implements Serializable {
         this.initialBalance = initialBalance;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
