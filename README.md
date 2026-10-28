@@ -7,7 +7,8 @@ O sistema permite que cada usuário registre receitas e despesas em suas contas,
 ## Situação atual
 
 - **Etapa 1** (tema e diagrama de classes simplificado): apresentada ao professor.
-- **Etapa 2** (classes do modelo): em andamento.
+- **Etapa 2** (classes do modelo): entregue.
+- **Etapa 3** (mapeamento objeto-relacional com JPA): em andamento.
 
 ## Modelo de domínio
 
