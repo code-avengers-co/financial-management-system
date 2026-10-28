@@ -7,7 +7,8 @@ O sistema permite que cada usuário registre receitas e despesas em suas contas,
 ## Situação atual
 
 - **Etapa 1** (tema e diagrama de classes simplificado): apresentada ao professor.
-- **Etapa 2** (classes do modelo): em andamento.
+- **Etapa 2** (classes do modelo): entregue.
+- **Etapa 3** (mapeamento objeto-relacional com JPA): em andamento.
 
 ## Modelo de domínio
 
@@ -26,6 +27,42 @@ O `User` tem o papel `USER` ou `ADMIN`. As categorias são cadastradas pelo ADMI
 ## Tecnologias
 
 Java, Spring Boot, JPA/Hibernate, Spring Data, Flyway, Thymeleaf, htmx, Tailwind CSS e Spring Security com HTTPS.
+
+## Como rodar localmente
+
+Requisitos: JDK 25 e Docker.
+
+### 1. Banco de dados
+
+O PostgreSQL roda em um container Docker montado com o Dockerfile da apostila "Docker, PostgreSQL e pgAdmin" do professor. Com o container rodando, crie o usuário e o banco da aplicação:
+
+```bash
+docker exec -it <nome-do-container> psql -U postgres -d postgres
+```
+
+```sql
+CREATE USER appspring WITH PASSWORD '12345';  -- só se ainda não existir
+CREATE DATABASE financialdb OWNER appspring;
+\q
+```
+
+A conexão fica em `financialmanagement/src/main/resources/application-dev.properties`.
+
+### 2. Aplicação
+
+Rode pela IDE (Run no IntelliJ ou Spring Boot Dashboard no VS Code) ou pelo terminal:
+
+```bash
+cd financialmanagement
+./mvnw spring-boot:run
+```
+
+Acesse http://localhost:8080. Até a Etapa 4, as tabelas são criadas pelo Hibernate quando a aplicação sobe. Depois disso, passam a ser criadas pelas migrações do Flyway.
+
+### 3. Consultar o banco (opcional)
+
+No DBeaver ou no pgAdmin, crie uma conexão PostgreSQL com host `localhost`, porta `5432`, banco `financialdb`, usuário `appspring` e senha `12345`.
+
 
 ## Documentação
 
