@@ -33,7 +33,7 @@ public class Transaction implements Serializable {
     @Column(name = "amount", nullable = false, precision = 20, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "transactionDate", nullable=false)
+    @Column(name = "transaction_date", nullable=false)
     private LocalDate transactionDate;
 
     @Enumerated(EnumType.STRING)

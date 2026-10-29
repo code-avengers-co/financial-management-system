@@ -25,13 +25,13 @@ public class Budget implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "limitAmount", nullable = false, precision = 20, scale = 2)
+    @Column(name = "limit_amount", nullable = false, precision = 20, scale = 2)
     private BigDecimal limitAmount;
 
-    @Column(name = "budgetMonth", nullable = false)
+    @Column(name = "budget_month", nullable = false)
     private int budgetMonth;
 
-    @Column(name = "budgetYear", nullable = false)
+    @Column(name = "budget_year", nullable = false)
     private int budgetYear;
 
     @ManyToOne(fetch = FetchType.LAZY)
