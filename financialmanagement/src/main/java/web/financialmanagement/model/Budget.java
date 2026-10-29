@@ -2,15 +2,43 @@ package web.financialmanagement.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import org.hibernate.annotations.DynamicUpdate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
+@Entity 
+@Table(name = "budget")
+@DynamicUpdate 
 public class Budget implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "limitAmount", nullable = false, precision = 19, scale = 2)
     private BigDecimal limitAmount;
+
+    @Column(name = "budgetMonth", nullable = false)
     private int budgetMonth;
+
+    @Column(name = "budgetYear", nullable = false)
     private int budgetYear;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_category", nullable = false)
     private Category category;
 
     public void setId(Long id) {
