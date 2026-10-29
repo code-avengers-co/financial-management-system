@@ -30,7 +30,7 @@ public class Transaction implements Serializable {
 
     private String description;
 
-    @Column(name = "amount", nullable = false, precision = 20, scale = 2)
+    @Column(precision = 20, scale = 2)
     private BigDecimal amount;
 
     @Column(name = "transaction_date")
