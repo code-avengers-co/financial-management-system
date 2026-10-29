@@ -106,8 +106,7 @@ public class Transaction implements Serializable {
     @Override
     public String toString() {
         return "Transaction [id=" + id + ", description=" + description + ", amount=" + amount
-                + ", transactionDate=" + transactionDate + ", type=" + type + ", account=" + account
-                + ", category=" + category + "]";
+                + ", transactionDate=" + transactionDate + ", type=" + type + "]";
     }
 
     @Override
@@ -115,12 +114,6 @@ public class Transaction implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-        result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((account == null) ? 0 : account.hashCode());
-        result = prime * result + ((category == null) ? 0 : category.hashCode());
         return result;
     }
 
@@ -138,35 +131,10 @@ public class Transaction implements Serializable {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (amount == null) {
-            if (other.amount != null)
-                return false;
-        } else if (!amount.equals(other.amount))
-            return false;
-        if (transactionDate == null) {
-            if (other.transactionDate != null)
-                return false;
-        } else if (!transactionDate.equals(other.transactionDate))
-            return false;
-        if (type != other.type)
-            return false;
-        if (account == null) {
-            if (other.account != null)
-                return false;
-        } else if (!account.equals(other.account))
-            return false;
-        if (category == null) {
-            if (other.category != null)
-                return false;
-        } else if (!category.equals(other.category))
-            return false;
         return true;
     }
+
+    
 
     
 }
