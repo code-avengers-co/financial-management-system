@@ -3,6 +3,7 @@ package web.financialmanagement.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import org.hibernate.annotations.DynamicUpdate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,28 +14,29 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity 
 @Table(name = "transaction")
+@DynamicUpdate
 public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id 
+    @Id
+    @SequenceGenerator(name="transaction_generator", sequenceName="transaction_id_seq", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "amount", nullable = false, precision = 19, scale = 2)
+    @Column(name = "amount", nullable = false, precision = 20, scale = 2)
     private BigDecimal amount;
 
     @Column(name = "transactionDate", nullable=false)
     private LocalDate transactionDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
     private TransactionType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -100,4 +102,6 @@ public class Transaction implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    
 }

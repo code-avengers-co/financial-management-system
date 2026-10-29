@@ -20,11 +20,12 @@ import jakarta.persistence.Table;
 public class Budget implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id 
+    @Id
+    @SequenceGenerator(name="budget_generator", sequenceName="budget_id_seq", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "limitAmount", nullable = false, precision = 19, scale = 2)
+    @Column(name = "limitAmount", nullable = false, precision = 20, scale = 2)
     private BigDecimal limitAmount;
 
     @Column(name = "budgetMonth", nullable = false)
