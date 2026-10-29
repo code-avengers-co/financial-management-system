@@ -25,21 +25,21 @@ public class Budget implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "limit_amount", nullable = false, precision = 20, scale = 2)
+    @Column(name = "limit_amount", precision = 20, scale = 2)
     private BigDecimal limitAmount;
 
-    @Column(name = "budget_month", nullable = false)
+    @Column(name = "budget_month")
     private int budgetMonth;
 
-    @Column(name = "budget_year", nullable = false)
+    @Column(name = "budget_year")
     private int budgetYear;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", nullable = false)
+    @JoinColumn(name = "id_user")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_category", nullable = false)
+    @JoinColumn(name = "id_category")
     private Category category;
 
     public void setId(Long id) {

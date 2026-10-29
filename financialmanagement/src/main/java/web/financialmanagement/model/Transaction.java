@@ -33,18 +33,18 @@ public class Transaction implements Serializable {
     @Column(name = "amount", nullable = false, precision = 20, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "transaction_date", nullable=false)
+    @Column(name = "transaction_date")
     private LocalDate transactionDate;
 
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_account", nullable = false)
+    @JoinColumn(name = "id_account")
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_category", nullable = false)
+    @JoinColumn(name = "id_category")
     private Category category;
 
     public Long getId() {
