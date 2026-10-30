@@ -2,15 +2,44 @@ package web.financialmanagement.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import org.hibernate.annotations.DynamicUpdate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
+@Entity 
+@Table(name = "budget")
+@DynamicUpdate 
 public class Budget implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @SequenceGenerator(name="budget_generator", sequenceName="budget_id_seq", allocationSize=1)
+    @GeneratedValue(generator="budget_generator", strategy=GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(name = "limit_amount", precision = 20, scale = 2)
     private BigDecimal limitAmount;
+
+    @Column(name = "budget_month")
     private int budgetMonth;
+
+    @Column(name = "budget_year")
     private int budgetYear;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_category")
     private Category category;
 
     public void setId(Long id) {
@@ -60,4 +89,37 @@ public class Budget implements Serializable {
     public Category getCategory() {
         return this.category;
     }
+
+    @Override
+    public String toString() {
+        return "Budget [id=" + id + ", limitAmount=" + limitAmount + ", budgetMonth=" + budgetMonth
+                + ", budgetYear=" + budgetYear + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Budget other = (Budget) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+    
+    
 }
