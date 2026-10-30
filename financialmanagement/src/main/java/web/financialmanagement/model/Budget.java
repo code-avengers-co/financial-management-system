@@ -22,7 +22,7 @@ public class Budget implements Serializable {
 
     @Id
     @SequenceGenerator(name="budget_generator", sequenceName="budget_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="budget_generator", strategy=GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "limit_amount", precision = 20, scale = 2)

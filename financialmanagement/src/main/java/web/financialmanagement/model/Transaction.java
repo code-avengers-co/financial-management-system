@@ -25,7 +25,7 @@ public class Transaction implements Serializable {
 
     @Id
     @SequenceGenerator(name="transaction_generator", sequenceName="transaction_id_seq", allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator="transaction_generator", strategy=GenerationType.SEQUENCE)
     private Long id;
 
     private String description;
