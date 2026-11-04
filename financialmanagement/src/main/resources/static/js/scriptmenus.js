@@ -10,6 +10,9 @@ function navToggleMenu() {
   btn.classList.toggle('open');
   menu.classList.toggle('flex');
   menu.classList.toggle('hidden');
+  if (!btn_usuario) {
+    return;
+  }
   if (btn.classList.contains('open')) {
     btn_usuario.classList.add('hidden');
   } else {
@@ -17,7 +20,9 @@ function navToggleMenu() {
   }
 }
 
-btn_usuario.addEventListener('click', navToggleUsuario)
+if (btn_usuario) {
+  btn_usuario.addEventListener('click', navToggleUsuario)
+}
 
 function navToggleUsuario() {
   menu_usuario.classList.toggle('flex');
