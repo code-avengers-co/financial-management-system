@@ -29,6 +29,10 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+
+		<!-- Tailwind version -->
+		<tailwind-maven-plugin.version>1.1.0</tailwind-maven-plugin.version>
+		<tailwind.version>v4.3.3</tailwind.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -107,7 +111,54 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- Generates static/css/style.css from static/css/input.css on every build -->
+			<plugin>
+				<groupId>io.github.4ndreidev</groupId>
+				<artifactId>tailwind-maven-plugin</artifactId>
+				<version>${tailwind-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<inputFile>${project.basedir}/src/main/resources/static/css/input.css</inputFile>
+					<outputFile>${project.basedir}/src/main/resources/static/css/style.css</outputFile>
+				</configuration>
+			</plugin>
 		</plugins>
+		<!-- Keeps Eclipse/VS Code (m2e) from complaining about the Tailwind plugin -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>io.github.4ndreidev</groupId>
+										<artifactId>tailwind-maven-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
