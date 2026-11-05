@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.financialmanagement.core.web.pagination.PageWrapper;
 import web.financialmanagement.dto.category.CategoryCreateRequest;
@@ -25,6 +26,8 @@ import web.financialmanagement.service.CategoryService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import web.financialmanagement.dto.category.CategoryUpdateRequest;
+
+
 
 @Controller
 @RequestMapping("/categories")
@@ -106,6 +109,16 @@ public class CategoryController {
 
         categoryService.update(id, request);
         attributes.addFlashAttribute("message", "Categoria atualizada com sucesso");
+
+        return "redirect:htmx:location:/categories";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id,
+                        RedirectAttributes attributes) {
+        categoryService.delete(id);
+
+        attributes.addFlashAttribute("message", "Categoria removida com sucesso");
 
         return "redirect:htmx:location:/categories";
     }

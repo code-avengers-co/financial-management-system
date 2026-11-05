@@ -60,6 +60,16 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow();
+
+        category.setActive(false);
+
+        categoryRepository.save(category);
+    }
+
     private Category toEntity(CategoryCreateRequest request) {
         Category category = new Category();
         category.setName(request.name());
