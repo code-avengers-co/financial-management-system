@@ -22,6 +22,9 @@ import web.financialmanagement.dto.category.CategoryCreateRequest;
 import web.financialmanagement.dto.category.CategoryResponse;
 import web.financialmanagement.dto.category.CategorySearchRequest;
 import web.financialmanagement.service.CategoryService;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import web.financialmanagement.dto.category.CategoryUpdateRequest;
 
 @Controller
 @RequestMapping("/categories")
@@ -54,6 +57,21 @@ public class CategoryController {
         return htmxRequest.isHtmxRequest() ? "categories/create :: formulario" : "categories/create";
     }
 
+    @GetMapping("/{id}/edit")
+    public String openEditForm(@PathVariable Long id,
+                            Model model,
+                            HtmxRequest htmxRequest) {
+        CategoryResponse category = categoryService.findById(id);
+
+        model.addAttribute("categoryId", id);
+        model.addAttribute("categoryUpdateRequest",
+                new CategoryUpdateRequest(category.name()));
+
+        return htmxRequest.isHtmxRequest()
+                ? "categories/edit :: formulario"
+                : "categories/edit";
+    }
+
     @PostMapping
     public String create(@Valid CategoryCreateRequest request,
                          BindingResult result,
@@ -66,6 +84,28 @@ public class CategoryController {
 
         categoryService.save(request);
         attributes.addFlashAttribute("message", "Categoria cadastrada com sucesso");
+
+        return "redirect:htmx:location:/categories";
+    }
+
+    @PutMapping("/{id}")
+    public String update(@PathVariable Long id,
+                        @Valid CategoryUpdateRequest request,
+                        BindingResult result,
+                        RedirectAttributes attributes,
+                        HtmxRequest htmxRequest,
+                        Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("categoryId", id);
+            logger.info("Invalid category: {}", result.getFieldErrors());
+
+            return htmxRequest.isHtmxRequest()
+                    ? "categories/edit :: formulario"
+                    : "categories/edit";
+        }
+
+        categoryService.update(id, request);
+        attributes.addFlashAttribute("message", "Categoria atualizada com sucesso");
 
         return "redirect:htmx:location:/categories";
     }
