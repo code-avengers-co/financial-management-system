@@ -8,7 +8,9 @@ O sistema permite que cada usuário registre receitas e despesas em suas contas,
 
 - **Etapa 1** (tema e diagrama de classes simplificado): apresentada ao professor.
 - **Etapa 2** (classes do modelo): entregue.
-- **Etapa 3** (mapeamento objeto-relacional com JPA): em andamento.
+- **Etapa 3** (mapeamento objeto-relacional com JPA): entregue.
+- **Etapa 4** (CRUD de `Category` e migrações com Flyway): entregue.
+- **Etapa 5** (lógica de negócio): próxima.
 
 ## Modelo de domínio
 
@@ -57,12 +59,18 @@ cd financialmanagement
 ./mvnw spring-boot:run
 ```
 
-Acesse http://localhost:8080. Até a Etapa 4, as tabelas são criadas pelo Hibernate quando a aplicação sobe. Depois disso, passam a ser criadas pelas migrações do Flyway.
+Acesse http://localhost:8080. As tabelas são criadas pelas migrações do Flyway (`financialmanagement/src/main/resources/db/migration`) quando a aplicação sobe. O cadastro, a pesquisa, a alteração e a remoção de categorias ficam no menu **Categoria**.
+
+Se o banco `financialdb` já tinha tabelas criadas pelo Hibernate (até a Etapa 3), o Flyway não roda as migrações. Nesse caso, recrie o banco pelo usuário `postgres`:
+
+```sql
+DROP DATABASE financialdb WITH (FORCE);
+CREATE DATABASE financialdb OWNER appspring;
+```
 
 ### 3. Consultar o banco (opcional)
 
 No DBeaver ou no pgAdmin, crie uma conexão PostgreSQL com host `localhost`, porta `5432`, banco `financialdb`, usuário `appspring` e senha `12345`.
-
 
 ## Documentação
 
