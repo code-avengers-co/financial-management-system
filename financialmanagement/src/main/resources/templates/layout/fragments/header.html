@@ -1,0 +1,32 @@
+<div th:fragment="header" xmlns:th="http://www.thymeleaf.org">
+  <!-- Header -->
+  <header class="flex items-center justify-between bg-gray-800 p-4">
+    <!-- Botao Hamburger -->
+    <div class="md:hidden">
+      <button id="menu-btn" type="button" class="hamburger z-40 block focus:outline-none md:hidden">
+        <span class="hamburger-top"></span>
+        <span class="hamburger-middle"></span>
+        <span class="hamburger-bottom"></span>
+      </button>
+    </div>
+
+    <!-- Icone e nome sistema -->
+    <a th:href="@{/}">
+      <div class="flex items-center">
+        <!-- Bootstrap Icons: wallet2 -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-wallet2 me-3 h-8 w-8 text-gray-400 md:h-10 md:w-10"
+          viewBox="0 0 16 16">
+          <path
+            d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z" />
+        </svg>
+        <div class="text-xl font-semibold text-gray-400 md:text-3xl">Gestão Financeira</div>
+      </div>
+    </a>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="menu"
+    class="absolute bottom-0 left-0 top-0 hidden min-h-screen w-full flex-col space-y-3 self-end bg-gray-800 py-1 pl-12 pt-40 text-lg text-gray-400">
+    <th:block th:replace="~{layout/fragments/menu :: menu}"></th:block>
+  </div>
+</div>
