@@ -5,6 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import web.financialmanagement.model.Category;
 
+import java.util.Optional;
+
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Page<Category> findAllByActive(boolean active, Pageable pageable);
+    Optional<Category> findByIdAndActive(Long id, boolean active);
 }

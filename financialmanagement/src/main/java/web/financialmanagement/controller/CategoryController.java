@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import web.financialmanagement.dto.category.CategoryUpdateRequest;
 
-
-
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
@@ -64,15 +62,10 @@ public class CategoryController {
     public String openEditForm(@PathVariable Long id,
                             Model model,
                             HtmxRequest htmxRequest) {
-        CategoryResponse category = categoryService.findById(id);
-
         model.addAttribute("categoryId", id);
-        model.addAttribute("categoryUpdateRequest",
-                new CategoryUpdateRequest(category.name()));
+        model.addAttribute("categoryUpdateRequest", categoryService.findForEdit(id));
 
-        return htmxRequest.isHtmxRequest()
-                ? "categories/edit :: formulario"
-                : "categories/edit";
+        return htmxRequest.isHtmxRequest() ? "categories/edit :: formulario" : "categories/edit";
     }
 
     @PostMapping
@@ -102,9 +95,7 @@ public class CategoryController {
             model.addAttribute("categoryId", id);
             logger.info("Invalid category: {}", result.getFieldErrors());
 
-            return htmxRequest.isHtmxRequest()
-                    ? "categories/edit :: formulario"
-                    : "categories/edit";
+            return htmxRequest.isHtmxRequest() ? "categories/edit :: formulario" : "categories/edit";
         }
 
         categoryService.update(id, request);
@@ -114,8 +105,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id,
-                        RedirectAttributes attributes) {
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         categoryService.delete(id);
 
         attributes.addFlashAttribute("message", "Categoria removida com sucesso");

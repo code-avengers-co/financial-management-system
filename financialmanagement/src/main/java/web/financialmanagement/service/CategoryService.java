@@ -6,13 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.financialmanagement.common.exception.EntidadeNaoEncontradaException;
 import web.financialmanagement.dto.category.CategoryCreateRequest;
 import web.financialmanagement.dto.category.CategoryResponse;
 import web.financialmanagement.dto.category.CategorySearchRequest;
+import web.financialmanagement.dto.category.CategoryUpdateRequest;
 import web.financialmanagement.model.Category;
 import web.financialmanagement.repository.CategoryRepository;
-import web.financialmanagement.dto.category.CategoryUpdateRequest;
-
 
 @Service
 public class CategoryService {
@@ -43,17 +43,17 @@ public class CategoryService {
         categoryRepository.save(toEntity(request));
     }
 
-    public CategoryResponse findById(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow();
+    public CategoryUpdateRequest findForEdit(Long id) {
+        Category category = categoryRepository.findByIdAndActive(id, true)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Categoria não encontrada"));
 
-        return toResponse(category);
+        return toUpdateRequest(category);
     }
 
     @Transactional
     public void update(Long id, CategoryUpdateRequest request) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow();
+        Category category = categoryRepository.findByIdAndActive(id, true)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Categoria não encontrada"));
 
         category.setName(request.name());
 
@@ -62,8 +62,8 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow();
+        Category category = categoryRepository.findByIdAndActive(id, true)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Categoria não encontrada"));
 
         category.setActive(false);
 
@@ -87,5 +87,9 @@ public class CategoryService {
 
     private CategoryResponse toResponse(Category category) {
         return new CategoryResponse(category.getId(), category.getName());
+    }
+
+    private CategoryUpdateRequest toUpdateRequest(Category category){
+        return new CategoryUpdateRequest(category.getName());
     }
 }
