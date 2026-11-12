@@ -6,9 +6,60 @@
 
   <!-- 1o Item Menu -->
   <div x-data="{ open: false }">
-    <button th:replace="~{components/menu-item-button :: menu-item-button('Categoria', ~{::#categoria-icon})}"></button>
+    <button th:replace="~{components/menu-item-button :: menu-item-button('Conta', ~{::#conta-icon})}"></button>
 
     <!-- Opcoes do 1o Item Menu -->
+    <div x-show="open" class="space-y-4 ps-10">
+      <!-- 1a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Cadastrar', '/accounts/new', ~{::#cadastrar-icon})}">
+      </div>
+      <!-- 2a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Pesquisar', '/accounts', ~{::#pesquisar-icon})}">
+      </div>
+    </div>
+  </div>
+
+  <!-- 2o Item Menu -->
+  <div x-data="{ open: false }">
+    <button th:replace="~{components/menu-item-button :: menu-item-button('Lançamento', ~{::#lancamento-icon})}"></button>
+
+    <!-- Opcoes do 2o Item Menu -->
+    <div x-show="open" class="space-y-4 ps-10">
+      <!-- 1a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Cadastrar', '/transactions/new', ~{::#cadastrar-icon})}">
+      </div>
+      <!-- 2a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Pesquisar', '/transactions', ~{::#pesquisar-icon})}">
+      </div>
+    </div>
+  </div>
+
+  <!-- 3o Item Menu -->
+  <div x-data="{ open: false }">
+    <button th:replace="~{components/menu-item-button :: menu-item-button('Orçamento', ~{::#orcamento-icon})}"></button>
+
+    <!-- Opcoes do 3o Item Menu -->
+    <div x-show="open" class="space-y-4 ps-10">
+      <!-- 1a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Cadastrar', '/budgets/new', ~{::#cadastrar-icon})}">
+      </div>
+      <!-- 2a Opcao -->
+      <div
+        th:replace="~{components/menu-item-option :: menu-item-option('Pesquisar', '/budgets', ~{::#pesquisar-icon})}">
+      </div>
+    </div>
+  </div>
+
+  <!-- 4o Item Menu -->
+  <div x-data="{ open: false }">
+    <button th:replace="~{components/menu-item-button :: menu-item-button('Categoria', ~{::#categoria-icon})}"></button>
+
+    <!-- Opcoes do 4o Item Menu -->
     <div x-show="open" class="space-y-4 ps-10">
       <!-- 1a Opcao -->
       <div
@@ -39,6 +90,25 @@
   <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0" />
   <path
     d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1m0 5.586 7 7L13.586 9l-7-7H2z" />
+</svg>
+
+<svg id="conta-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+  class="bi bi-credit-card" viewBox="0 0 16 16">
+  <path
+    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+</svg>
+
+<svg id="lancamento-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+  class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+    d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
+</svg>
+
+<svg id="orcamento-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+  class="bi bi-pie-chart" viewBox="0 0 16 16">
+  <path
+    d="M7.5 1.018a7 7 0 0 0-4.79 11.566L7.5 7.793zm1 0V7.5h6.482A7 7 0 0 0 8.5 1.018M14.982 8.5H8.207l-4.79 4.79A7 7 0 0 0 14.982 8.5M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
 </svg>
 
 </html>

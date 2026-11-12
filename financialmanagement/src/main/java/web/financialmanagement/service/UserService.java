@@ -15,7 +15,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findCurrentUser(){
+    public User findCurrentUser() {
         return userRepository.findByEmailAndActive(TEST_USER_EMAIL, true)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
     }
