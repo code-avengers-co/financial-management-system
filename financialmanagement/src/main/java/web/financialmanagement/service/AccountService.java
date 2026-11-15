@@ -15,6 +15,7 @@ import web.financialmanagement.repository.AccountRepository;
 import web.financialmanagement.repository.TransactionRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -40,6 +41,13 @@ public class AccountService {
 
         return accountRepository.findAllByUserAndActiveAndNameContainingIgnoreCase(user, true, request.name(), pageable)
                 .map(this::toResponse);
+    }
+
+    public List<AccountResponse> findAllActive() {
+        return accountRepository.findAllByUserAndActiveOrderByNameAsc(userService.findCurrentUser(), true)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @Transactional
