@@ -20,14 +20,20 @@
     <!-- Formulario de pesquisa -->
     <form th:hx-get="@{/transactions}" th:object="${transactionSearchRequest}" class="md:w-2/3 mt-6 ms-16">
         <div class="grid md:grid-cols-3 gap-x-4">
-            <div th:replace="~{components/forms :: selectNormal(textoLabel='Mês', nomeAtributo='month',
-                 listaOpcoes=${months}, propValue='number', propLabel='name',
-                 valorAtributo=${transactionSearchRequest.month})}"></div>
-            <div th:replace="~{components/forms :: inputNumero(textoLabel='Ano', nomeAtributo='year',
-                 valorAtributo=${transactionSearchRequest.year}, isDecimal=false, showGroups=false)}"></div>
-            <div th:replace="~{components/forms :: selectNormal(textoLabel='Conta', nomeAtributo='accountId',
-                 listaOpcoes=${accounts}, propValue='id', propLabel='name', textoPlaceholder='Todas',
-                 valorAtributo=${transactionSearchRequest.accountId})}"></div>
+            <div>
+                <div th:replace="~{components/forms :: selectNormal(textoLabel='Mês', nomeAtributo='month',
+                     listaOpcoes=${months}, propValue='number', propLabel='name',
+                     valorAtributo=${transactionSearchRequest.month})}"></div>
+            </div>
+            <div>
+                <div th:replace="~{components/forms :: inputNumero(textoLabel='Ano', nomeAtributo='year',
+                     valorAtributo=${transactionSearchRequest.year}, isDecimal=false, showGroups=false)}"></div>
+            </div>
+            <div>
+                <div th:replace="~{components/forms :: selectNormal(textoLabel='Conta', nomeAtributo='accountId',
+                     listaOpcoes=${accounts}, propValue='id', propLabel='name', textoPlaceholder='Todas',
+                     valorAtributo=${transactionSearchRequest.accountId})}"></div>
+            </div>
         </div>
 
         <button type="submit"
