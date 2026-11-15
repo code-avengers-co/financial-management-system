@@ -1,0 +1,4 @@
+<th:block th:fragment="campos" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="~{components/forms :: inputTexto(textoLabel='Nome', nomeAtributo='name', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: inputDinheiro(textoLabel='Saldo inicial', nomeAtributo='initialBalance', isValidado=true)}"></div>
+</th:block>
