@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.financialmanagement.common.exception.EntidadeNaoEncontradaException;
+import web.financialmanagement.dto.transaction.MonthSummaryResponse;
 import web.financialmanagement.dto.transaction.TransactionCreateRequest;
 import web.financialmanagement.dto.transaction.TransactionResponse;
 import web.financialmanagement.dto.transaction.TransactionSearchRequest;
@@ -107,6 +108,26 @@ public class TransactionService {
                         period.atDay(1), period.atEndOfMonth());
 
         return sumAmounts(expenses);
+    }
+
+    @Transactional(readOnly = true)
+    public MonthSummaryResponse summarizeMonth(int month, int year) {
+        YearMonth period = YearMonth.of(year, month);
+        List<Transaction> transactions = transactionRepository.findAllByAccountUserAndAccountActiveAndTransactionDateBetween(
+                userService.findCurrentUser(), true, period.atDay(1), period.atEndOfMonth());
+
+        BigDecimal totalIncome = BigDecimal.ZERO;
+        BigDecimal totalExpense = BigDecimal.ZERO;
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getType() == TransactionType.INCOME) {
+                totalIncome = totalIncome.add(transaction.getAmount());
+            } else {
+                totalExpense = totalExpense.add(transaction.getAmount());
+            }
+        }
+
+        return new MonthSummaryResponse(totalIncome, totalExpense, totalIncome.subtract(totalExpense));
     }
 
     private BigDecimal sumAmounts(List<Transaction> transactions) {

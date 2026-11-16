@@ -19,6 +19,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     Page<Transaction> findAllByAccountUserAndAccountActiveAndTransactionDateBetween(
             User user, boolean active, LocalDate start, LocalDate end, Pageable pageable);
 
+    List<Transaction> findAllByAccountUserAndAccountActiveAndTransactionDateBetween(
+            User user, boolean active, LocalDate start, LocalDate end);
+
     Page<Transaction> findAllByAccountAndTransactionDateBetween(
             Account account, LocalDate start, LocalDate end, Pageable pageable);
 

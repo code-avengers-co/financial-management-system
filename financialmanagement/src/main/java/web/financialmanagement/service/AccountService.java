@@ -50,6 +50,16 @@ public class AccountService {
                 .toList();
     }
 
+    public BigDecimal calculateTotalBalance(List<AccountResponse> accounts) {
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (AccountResponse account : accounts) {
+            total = total.add(account.currentBalance());
+        }
+
+        return total;
+    }
+
     @Transactional
     public void save(AccountCreateRequest request) {
         accountRepository.save(toEntity(request, userService.findCurrentUser()));
