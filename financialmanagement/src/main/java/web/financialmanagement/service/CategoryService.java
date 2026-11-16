@@ -14,6 +14,8 @@ import web.financialmanagement.dto.category.CategoryUpdateRequest;
 import web.financialmanagement.model.Category;
 import web.financialmanagement.repository.CategoryRepository;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
@@ -36,6 +38,13 @@ public class CategoryService {
 
         return categoryRepository.findAll(Example.of(categoryFilter, matcher), pageable)
                 .map(this::toResponse);
+    }
+
+    public List<CategoryResponse> findAllActive() {
+        return categoryRepository.findAllByActiveOrderByNameAsc(true)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @Transactional
