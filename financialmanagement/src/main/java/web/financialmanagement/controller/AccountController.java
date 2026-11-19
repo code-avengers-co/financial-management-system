@@ -25,6 +25,7 @@ import web.financialmanagement.service.AccountService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import web.financialmanagement.dto.account.AccountUpdateRequest;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @Controller
 @RequestMapping("/accounts")
@@ -99,6 +100,15 @@ public class AccountController {
 
         accountService.update(id, request);
         attributes.addFlashAttribute("message", "Conta atualizada com sucesso");
+
+        return "redirect:htmx:location:/accounts";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        accountService.delete(id);
+
+        attributes.addFlashAttribute("message", "Conta removida com sucesso");
 
         return "redirect:htmx:location:/accounts";
     }

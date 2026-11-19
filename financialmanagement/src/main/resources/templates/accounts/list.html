@@ -50,10 +50,21 @@
                                 th:classappend="${account.currentBalance.signum() < 0} ? 'text-red-700' : 'text-gray-800'"
                                 class="px-6 py-4 whitespace-nowrap text-sm font-medium">R$ 0,00</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                            <a th:hx-get="@{/accounts/{id}/edit(id=${account.id})}"
-                            class="cursor-pointer py-2 px-3 text-sm font-medium rounded-lg bg-blue-100 text-blue-800 hover:bg-blue-200">
-                                Alterar
-                            </a>
+                                <div class="flex items-center gap-6">
+                                    
+                                    <a th:hx-get="@{/accounts/{id}/edit(id=${account.id})}"
+                                    class="cursor-pointer py-2 px-3 text-sm font-medium rounded-lg bg-blue-100 text-blue-800 hover:bg-blue-200">
+                                        Alterar
+                                    </a>
+
+                                    <button type="button"
+                                            th:hx-delete="@{/accounts/{id}(id=${account.id})}"
+                                            hx-confirm="Tem certeza que deseja remover esta conta?"
+                                            class="py-2 px-3 text-sm font-medium rounded-lg bg-red-100 text-red-800 hover:bg-red-200">
+                                        Remover
+                                    </button>
+                                </div>
+                            
                         </td>
                         </tr>
                         <tr th:if="${page.vazia}">

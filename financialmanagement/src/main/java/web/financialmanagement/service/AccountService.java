@@ -89,6 +89,17 @@ public class AccountService {
         );
     }
 
+    @Transactional
+        public void delete(Long id) {
+            Account account = accountRepository.findByIdAndUserAndActive(
+                    id, userService.findCurrentUser(), true
+            ).orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
+
+            account.setActive(false);
+
+            accountRepository.save(account);
+        }
+
     private BigDecimal calculateCurrentBalance(Account account) {
         BigDecimal balance = account.getInitialBalance();
 
