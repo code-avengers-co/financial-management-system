@@ -22,6 +22,9 @@ import web.financialmanagement.dto.account.AccountCreateRequest;
 import web.financialmanagement.dto.account.AccountResponse;
 import web.financialmanagement.dto.account.AccountSearchRequest;
 import web.financialmanagement.service.AccountService;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import web.financialmanagement.dto.account.AccountUpdateRequest;
 
 @Controller
 @RequestMapping("/accounts")
@@ -54,6 +57,16 @@ public class AccountController {
         return htmxRequest.isHtmxRequest() ? "accounts/create :: formulario" : "accounts/create";
     }
 
+    @GetMapping("/{id}/edit")
+    public String openEditForm(@PathVariable Long id,
+                            Model model,
+                            HtmxRequest htmxRequest) {
+        model.addAttribute("accountId", id);
+        model.addAttribute("accountUpdateRequest", accountService.findForEdit(id));
+
+        return htmxRequest.isHtmxRequest() ? "accounts/edit :: formulario" : "accounts/edit";
+    }
+
     @PostMapping
     public String create(@Valid AccountCreateRequest request,
                          BindingResult result,
@@ -66,6 +79,26 @@ public class AccountController {
 
         accountService.save(request);
         attributes.addFlashAttribute("message", "Conta cadastrada com sucesso");
+
+        return "redirect:htmx:location:/accounts";
+    }
+
+    @PutMapping("/{id}")
+    public String update(@PathVariable Long id,
+                        @Valid AccountUpdateRequest request,
+                        BindingResult result,
+                        RedirectAttributes attributes,
+                        HtmxRequest htmxRequest,
+                        Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("accountId", id);
+            logger.info("Invalid account: {}", result.getFieldErrors());
+
+            return htmxRequest.isHtmxRequest() ? "accounts/edit :: formulario" : "accounts/edit";
+        }
+
+        accountService.update(id, request);
+        attributes.addFlashAttribute("message", "Conta atualizada com sucesso");
 
         return "redirect:htmx:location:/accounts";
     }

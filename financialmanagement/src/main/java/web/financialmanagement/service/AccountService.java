@@ -13,6 +13,7 @@ import web.financialmanagement.model.TransactionType;
 import web.financialmanagement.model.User;
 import web.financialmanagement.repository.AccountRepository;
 import web.financialmanagement.repository.TransactionRepository;
+import web.financialmanagement.dto.account.AccountUpdateRequest;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -63,6 +64,29 @@ public class AccountService {
     @Transactional
     public void save(AccountCreateRequest request) {
         accountRepository.save(toEntity(request, userService.findCurrentUser()));
+    }
+    
+    @Transactional
+    public void update(Long id, AccountUpdateRequest request) {
+        Account account = accountRepository.findByIdAndUserAndActive(
+                id, userService.findCurrentUser(), true
+        ).orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
+
+        account.setName(request.name());
+        account.setInitialBalance(request.initialBalance());
+
+        accountRepository.save(account);
+    }
+
+    public AccountUpdateRequest findForEdit(Long id) {
+        Account account = accountRepository.findByIdAndUserAndActive(
+                id, userService.findCurrentUser(), true
+        ).orElseThrow(() -> new IllegalArgumentException("Conta não encontrada"));
+
+        return new AccountUpdateRequest(
+                account.getName(),
+                account.getInitialBalance()
+        );
     }
 
     private BigDecimal calculateCurrentBalance(Account account) {
