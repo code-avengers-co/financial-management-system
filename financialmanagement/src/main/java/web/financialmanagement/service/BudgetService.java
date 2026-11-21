@@ -143,6 +143,19 @@ public class BudgetService {
         budgetRepository.save(budget);
     }
 
+    @Transactional
+    public void delete(Long id) {
+
+        User user = userService.findCurrentUser();
+
+        Budget budget = budgetRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                        "Orçamento não encontrado"
+                ));
+
+        budgetRepository.delete(budget);
+    }
+
     private Category findCategory(Long id) {
         return categoryRepository.findByIdAndActive(id, true)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Categoria não encontrada"));

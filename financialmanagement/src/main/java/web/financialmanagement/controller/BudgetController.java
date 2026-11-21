@@ -11,6 +11,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -125,6 +126,19 @@ public class BudgetController {
 
             return "budgets/edit";
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(
+            @PathVariable Long id,
+            RedirectAttributes attributes) {
+
+        budgetService.delete(id);
+
+        attributes.addFlashAttribute(
+                "message", "Orçamento excluído com sucesso");
+
+        return "redirect:htmx:location:/budgets";
     }
 
     @PostMapping
