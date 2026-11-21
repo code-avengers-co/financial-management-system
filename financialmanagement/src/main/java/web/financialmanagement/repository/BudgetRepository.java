@@ -19,4 +19,26 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     boolean existsByUserAndCategoryAndBudgetMonthAndBudgetYearAndIdNot(
             User user, Category category, int budgetMonth, int budgetYear, Long id);
+
+    Page<Budget> findAllByUserAndCategory(
+            User user, Category category, Pageable pageable);
+
+    Page<Budget> findAllByUserAndBudgetMonth(
+            User user, int budgetMonth, Pageable pageable);
+
+    Page<Budget> findAllByUserAndBudgetYear(
+            User user, int budgetYear, Pageable pageable);
+
+    Page<Budget> findAllByUserAndCategoryAndBudgetMonth(
+            User user, Category category, int budgetMonth, Pageable pageable);
+
+    Page<Budget> findAllByUserAndCategoryAndBudgetYear(
+            User user, Category category, int budgetYear, Pageable pageable);
+
+    Page<Budget> findAllByUserAndBudgetMonthAndBudgetYear(
+            User user, int budgetMonth, int budgetYear, Pageable pageable);
+
+    Page<Budget> findAllByUserAndCategoryAndBudgetMonthAndBudgetYear(
+            User user, Category category, int budgetMonth, int budgetYear, Pageable pageable);
+
 }

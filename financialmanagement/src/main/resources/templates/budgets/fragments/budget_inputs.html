@@ -1,0 +1,46 @@
+
+<th:block th:fragment="campos" xmlns:th="http://www.thymeleaf.org">
+
+    <div th:replace="~{components/forms :: inputDinheiro(
+        textoLabel='Limite do orçamento',
+        nomeAtributo='limitAmount',
+        isValidado=true
+    )}"></div>
+
+    <div th:replace="~{components/forms :: selectNormal(
+        textoLabel='Categoria',
+        nomeAtributo='categoryId',
+        listaOpcoes=${categories},
+        propValue='id',
+        propLabel='name',
+        isValidado=true
+    )}"></div>
+
+
+    <div class="flex flex-col mt-4">
+        <label for="budgetMonth">Mês</label>
+        <input type="number"
+            id="budgetMonth"
+            th:field="*{budgetMonth}"
+            min="1"
+            max="12"
+            class="border rounded p-2"/>
+        <p th:if="${#fields.hasErrors('budgetMonth')}"
+        th:errors="*{budgetMonth}"
+        class="text-red-500"></p>
+    </div>
+
+    <div class="flex flex-col mt-4">
+        <label for="budgetYear">Ano</label>
+        <input type="number"
+            id="budgetYear"
+            th:field="*{budgetYear}"
+            min="2000"
+            class="border rounded p-2"/>
+        <p th:if="${#fields.hasErrors('budgetYear')}"
+        th:errors="*{budgetYear}"
+        class="text-red-500"></p>
+    </div>
+
+
+</th:block>

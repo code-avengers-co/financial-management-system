@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layoutpadrao}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <title>Pesquisa de Orçamentos</title>
+</head>
+
+<body>
+<main layout:fragment="conteudo"
+      th:fragment="conteudo"
+      id="main"
+      class="flex flex-col align-middle w-full">
+
+    <h3 class="text-xl md:text-3xl mt-10 ms-16">
+        Pesquisa de Orçamentos
+    </h3>
+
+    <h3 th:if="${not #strings.isEmpty(message)}"
+        th:text="${message}"
+        class="text-2xl md:text-4xl text-center mt-6">
+        Mensagem
+    </h3>
+
+    <!-- Formulário de pesquisa -->
+    <form th:hx-get="@{/budgets}"
+          th:object="${budgetSearchRequest}"
+          class="w-1/2 mt-6 ms-16">
+
+        <div class="flex flex-col mt-4">
+            <label for="categoryId">Categoria</label>
+            <select id="categoryId"
+                    th:field="*{categoryId}"
+                    class="border rounded p-2">
+                <option value="">Todas as categorias</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.name}">
+                </option>
+            </select>
+        </div>
+
+        <div class="flex flex-col mt-4">
+            <label for="budgetMonth">Mês</label>
+            <input type="number"
+                   id="budgetMonth"
+                   th:field="*{budgetMonth}"
+                   min="1"
+                   max="12"
+                   class="border rounded p-2"/>
+        </div>
+
+        <div class="flex flex-col mt-4">
+            <label for="budgetYear">Ano</label>
+            <input type="number"
+                   id="budgetYear"
+                   th:field="*{budgetYear}"
+                   min="2000"
+                   class="border rounded p-2"/>
+        </div>
+
+        <button type="submit"
+                class="mt-8 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-100 text-blue-800 hover:bg-blue-200">
+            Pesquisar
+        </button>
+    </form>
+
+    <!-- Tabela -->
+    <div class="flex flex-col md:w-2/3 ms-16 mt-10">
+        <div class="overflow-x-auto">
+            <div class="min-w-full inline-block align-middle">
+                <div class="border rounded-xl overflow-hidden shadow">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                        <tr>
+                            <th:block th:replace="~{components/paginacao :: coluna(${page}, 'id', 'Código', '')}"></th:block>
+                            <th:block th:replace="~{components/paginacao :: coluna(${page}, 'limitAmount', 'Limite', '')}"></th:block>
+                            <th:block th:replace="~{components/paginacao :: coluna(${page}, 'budgetMonth', 'Mês', '')}"></th:block>
+                            <th:block th:replace="~{components/paginacao :: coluna(${page}, 'budgetYear', 'Ano', '')}"></th:block>
+                            <th class="px-6 py-4 text-left text-sm font-medium text-gray-800">Categoria</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="budget : ${page.conteudo}"
+                            class="odd:bg-white even:bg-gray-100 hover:bg-gray-200">
+
+                            <td th:text="${budget.id}"
+                                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">1</td>
+
+                            <td th:text="${budget.limitAmount}"
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">500,00</td>
+
+                            <td th:text="${budget.budgetMonth}"
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">11</td>
+
+                            <td th:text="${budget.budgetYear}"
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">2026</td>
+
+                            <td th:text="${budget.categoryName}"
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Alimentação</td>
+                        </tr>
+
+                        <tr th:if="${page.vazia}">
+                            <td colspan="5"
+                                class="px-6 py-4 text-center text-sm text-gray-500">
+                                Nenhum orçamento encontrado
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginação -->
+    <div th:replace="~{components/paginacao :: paginacao(${page})}"></div>
+
+</main>
+</body>
+</html>
