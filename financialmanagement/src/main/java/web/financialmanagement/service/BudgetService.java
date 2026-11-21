@@ -9,6 +9,7 @@ import web.financialmanagement.common.exception.EntidadeNaoEncontradaException;
 import web.financialmanagement.dto.budget.BudgetCreateRequest;
 import web.financialmanagement.dto.budget.BudgetResponse;
 import web.financialmanagement.dto.budget.BudgetSearchRequest;
+import web.financialmanagement.dto.budget.BudgetUpdateRequest;
 import web.financialmanagement.model.Budget;
 import web.financialmanagement.model.User;
 import web.financialmanagement.model.Category;
@@ -94,6 +95,53 @@ public class BudgetService {
                 .map(this::toResponse);
     }
 
+    @Transactional(readOnly = true)
+    public BudgetResponse findForEdit(Long id) {
+
+        User user = userService.findCurrentUser();
+
+        Budget budget = budgetRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                        "Orçamento não encontrado"
+                ));
+
+        return toResponse(budget);
+    }
+
+    @Transactional
+    public void update(Long id, BudgetUpdateRequest request) {
+
+        User user = userService.findCurrentUser();
+
+        Budget budget = budgetRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                        "Orçamento não encontrado"
+                ));
+
+        Category category = findCategory(request.categoryId());
+
+        boolean alreadyExists = budgetRepository
+                .existsByUserAndCategoryAndBudgetMonthAndBudgetYearAndIdNot(
+                        user,
+                        category,
+                        request.budgetMonth(),
+                        request.budgetYear(),
+                        id
+                );
+
+        if (alreadyExists) {
+            throw new IllegalArgumentException(
+                    "Já existe um orçamento para essa categoria neste mês e ano"
+            );
+        }
+
+        budget.setCategory(category);
+        budget.setLimitAmount(request.limitAmount());
+        budget.setBudgetMonth(request.budgetMonth());
+        budget.setBudgetYear(request.budgetYear());
+
+        budgetRepository.save(budget);
+    }
 
     private Category findCategory(Long id) {
         return categoryRepository.findByIdAndActive(id, true)
