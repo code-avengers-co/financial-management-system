@@ -96,6 +96,17 @@ public class BudgetService {
     }
 
     @Transactional(readOnly = true)
+    public java.util.List<BudgetResponse> findByMonthAndYear(int month, int year) {
+        User user = userService.findCurrentUser();
+
+        return budgetRepository
+                .findAllByUserAndBudgetMonthAndBudgetYear(
+                        user, month, year, org.springframework.data.domain.Pageable.unpaged())
+                .map(this::toResponse)
+                .getContent();
+    }
+
+    @Transactional(readOnly = true)
     public BudgetResponse findForEdit(Long id) {
 
         User user = userService.findCurrentUser();

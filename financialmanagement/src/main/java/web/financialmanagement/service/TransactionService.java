@@ -1,5 +1,8 @@
 package web.financialmanagement.service;
 
+import java.math.BigDecimal;
+import java.time.YearMonth;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,10 +21,6 @@ import web.financialmanagement.model.User;
 import web.financialmanagement.repository.AccountRepository;
 import web.financialmanagement.repository.CategoryRepository;
 import web.financialmanagement.repository.TransactionRepository;
-
-import java.math.BigDecimal;
-import java.time.YearMonth;
-import java.util.List;
 
 @Service
 public class TransactionService {
@@ -108,6 +107,12 @@ public class TransactionService {
                         period.atDay(1), period.atEndOfMonth());
 
         return sumAmounts(expenses);
+    }
+
+    @Transactional(readOnly = true)
+    public BigDecimal calculateTotalExpenses(Long categoryId, int month, int year) {
+        Category category = findCategory(categoryId);
+        return calculateTotalExpenses(category, month, year);
     }
 
     @Transactional(readOnly = true)
