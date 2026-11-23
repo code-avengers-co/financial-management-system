@@ -68,6 +68,58 @@
             </div>
         </div>
     </div>
+
+    <!-- Orçamentos -->
+    <h4 class="text-lg md:text-xl mt-10 ms-16">Orçamentos do mês</h4>
+
+    <div class="flex flex-col md:w-2/3 ms-16 mt-4 gap-4">
+
+        <div th:each="budget : ${budgets}"
+            class="border rounded-xl shadow bg-white p-6">
+
+            <div class="flex justify-between items-center">
+                <p th:text="${budget.categoryName}"
+                class="font-semibold text-gray-800">
+                    Categoria
+                </p>
+
+                <p th:text="${#numbers.formatCurrency(budget.limitAmount)}"
+                class="font-semibold">
+                    R$ 0,00
+                </p>
+            </div>
+
+            <div class="flex justify-between items-center mt-2">
+                <p class="text-sm text-gray-500">
+                    Gasto:
+                    <span th:text="${#numbers.formatCurrency(budget.spentAmount) + ' (' + budget.percentage + '%)'}">
+                        R$ 0,00 (0%)
+                    </span>
+                </p>
+
+                <p th:text="${budget.status.description}"
+                   th:classappend="${budget.status.name() == 'EXCEEDED'} ? 'text-red-700' : (${budget.status.name() == 'NEAR_LIMIT'} ? 'text-yellow-700' : 'text-green-700')"
+                   class="text-sm font-semibold">
+                    Dentro do limite
+                </p>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-3 mt-3">
+                <div th:classappend="${budget.status.name() == 'EXCEEDED'} ? 'bg-red-600' : (${budget.status.name() == 'NEAR_LIMIT'} ? 'bg-yellow-500' : 'bg-green-600')"
+                     class="h-3 rounded-full"
+                     th:style="'width:' + ${budget.percentage > 100 ? 100 : budget.percentage} + '%'">
+                </div>
+            </div>
+
+        </div>
+
+        <p th:if="${#lists.isEmpty(budgets)}"
+        class="text-gray-500">
+            Nenhum orçamento cadastrado para este mês.
+        </p>
+
+    </div>
+
 </main>
 <!-- !conteudo principal -->
 </body>
