@@ -103,12 +103,13 @@ public class BudgetController {
             @Valid BudgetUpdateRequest request,
             BindingResult result,
             Model model,
-            RedirectAttributes attributes) {
+            RedirectAttributes attributes,
+            HtmxRequest htmxRequest) {
 
         if (result.hasErrors()) {
             model.addAttribute("budgetId", id);
             model.addAttribute("categories", categoryService.findAllActive());
-            return "budgets/edit";
+            return htmxRequest.isHtmxRequest() ? "budgets/edit :: formulario" : "budgets/edit";
         }
 
         try {
@@ -124,7 +125,7 @@ public class BudgetController {
             model.addAttribute("categories", categoryService.findAllActive());
             model.addAttribute("errorMessage", e.getMessage());
 
-            return "budgets/edit";
+            return htmxRequest.isHtmxRequest() ? "budgets/edit :: formulario" : "budgets/edit";
         }
     }
 
@@ -146,11 +147,12 @@ public class BudgetController {
             @Valid BudgetCreateRequest request,
             BindingResult result,
             Model model,
-            RedirectAttributes attributes) {
+            RedirectAttributes attributes,
+            HtmxRequest htmxRequest) {
 
         if (result.hasErrors()) {
             model.addAttribute("categories", categoryService.findAllActive());
-            return "budgets/create";
+            return htmxRequest.isHtmxRequest() ? "budgets/create :: formulario" : "budgets/create";
         }
 
         try {
@@ -164,7 +166,7 @@ public class BudgetController {
             model.addAttribute("categories", categoryService.findAllActive());
             model.addAttribute("errorMessage", e.getMessage());
 
-            return "budgets/create";
+            return htmxRequest.isHtmxRequest() ? "budgets/create :: formulario" : "budgets/create";
         }
     }
 
