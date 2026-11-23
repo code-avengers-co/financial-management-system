@@ -7,20 +7,20 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public record BudgetUpdateRequest(
-    @NotNull(message = "The limit is mandatory")
-        @DecimalMin(value = "0.01", message = "The limit must be greater then 0")
+    @NotNull(message = "O limite é obrigatório")
+        @DecimalMin(value = "0.01", message = "O limite deve ser maior que zero")
         BigDecimal limitAmount,
 
-        @NotNull(message = "The month is mandatory")
-        @Min(value = 1, message = "The month mus be between 1 and 12")
-        @Max(value = 12, message = "The month mus be between 1 and 12")
+        @NotNull(message = "O mês é obrigatório")
+        @Min(value = 1, message = "O mês deve estar entre 1 e 12")
+        @Max(value = 12, message = "O mês deve estar entre 1 e 12")
         Integer budgetMonth,
 
-        @NotNull(message = "The year is mandatory")
-        @Min(value = 2000, message = "Enter a valid year")
+        @NotNull(message = "O ano é obrigatório")
+        @Min(value = 2000, message = "Informe um ano válido")
         Integer budgetYear,
 
-        @NotNull(message = "Enter a category")
+        @NotNull(message = "A categoria é obrigatória")
         Long categoryId
 
 ) {
