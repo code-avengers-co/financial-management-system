@@ -10,7 +10,8 @@ O sistema permite que cada usuário registre receitas e despesas em suas contas,
 - **Etapa 2** (classes do modelo): entregue.
 - **Etapa 3** (mapeamento objeto-relacional com JPA): entregue.
 - **Etapa 4** (CRUD de `Category` e migrações com Flyway): entregue.
-- **Etapa 5** (lógica de negócio): próxima.
+- **Etapa 5** (lógica de negócio: contas, lançamentos, orçamentos e painel): entregue.
+- **Etapa 6** (segurança, cadastro de usuários e HTTPS): próxima.
 
 ## Modelo de domínio
 
@@ -59,7 +60,21 @@ cd financialmanagement
 ./mvnw spring-boot:run
 ```
 
-Acesse http://localhost:8080. As tabelas são criadas pelas migrações do Flyway (`financialmanagement/src/main/resources/db/migration`) quando a aplicação sobe. O cadastro, a pesquisa, a alteração e a remoção de categorias ficam no menu **Categoria**.
+Acesse http://localhost:8080. As tabelas são criadas pelas migrações do Flyway (`financialmanagement/src/main/resources/db/migration`) quando a aplicação sobe.
+
+Enquanto o login não existe (Etapa 6), o sistema usa um usuário de teste fixo. Depois da primeira execução, insira esse usuário no banco `financialdb`:
+
+```sql
+INSERT INTO users (name, email, hash_password, role, active)
+VALUES ('Usuário Teste', 'usuario@teste.com', '123', 'USER', true);
+```
+
+A página inicial é o **Painel**, com as receitas, as despesas e o resultado do mês, o saldo das contas e a situação dos orçamentos. O menu lateral tem:
+
+- **Conta**: cadastro, pesquisa, alteração e remoção de contas, com o saldo atual (saldo inicial + receitas − despesas).
+- **Lançamento**: receitas e despesas, com pesquisa por mês, ano e conta.
+- **Orçamento**: limite de gasto por categoria, mês e ano, com o gasto e a situação (dentro do limite, perto do limite a partir de 80% ou estourado acima de 100%).
+- **Categoria**: cadastro, pesquisa, alteração e remoção de categorias.
 
 Se o banco `financialdb` já tinha tabelas criadas pelo Hibernate (até a Etapa 3), o Flyway não roda as migrações. Nesse caso, recrie o banco pelo usuário `postgres`:
 
