@@ -1,0 +1,11 @@
+<th:block th:fragment="campos" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="~{components/forms :: selectNormal(textoLabel='Conta', nomeAtributo='accountId',
+         listaOpcoes=${accounts}, propValue='id', propLabel='name', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: selectNormal(textoLabel='Categoria', nomeAtributo='categoryId',
+         listaOpcoes=${categories}, propValue='id', propLabel='name', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: inputRadio(textoLabelGroup='Tipo', nomeAtributo='type',
+         listaOpcoes=${types}, propLabel='description', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: inputDinheiro(textoLabel='Valor', nomeAtributo='amount', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: inputData(textoLabel='Data', nomeAtributo='transactionDate', isValidado=true)}"></div>
+    <div th:replace="~{components/forms :: inputTexto(textoLabel='Descrição', nomeAtributo='description', isValidado=true)}"></div>
+</th:block>

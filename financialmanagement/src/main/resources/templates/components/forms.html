@@ -782,7 +782,7 @@
 
           <option th:each="item : ${listaOpcoes}" th:value="${propValue != null ? item[propValue] : item}"
             th:text="${propLabel != null ? item[propLabel] : item}"
-            th:selected="${valorDoObjeto != null and valorDoObjeto == item}">
+            th:selected="${valorDoObjeto != null and valorDoObjeto == (propValue != null ? item[propValue] : item)}">
           </option>
         </select>
 

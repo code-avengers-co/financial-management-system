@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layoutpadrao}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <title>Cadastro de Orçamento</title>
+    
+</head>
+<body>
+
+<main layout:fragment="conteudo"
+      th:fragment="formulario"
+      id="main"
+      class="flex flex-col align-middle w-full">
+
+    <h3 class="text-xl md:text-3xl mt-10 ms-16">
+        Cadastro de Orçamento
+    </h3>
+
+    <p th:if="${errorMessage}"
+    th:text="${errorMessage}"
+    class="text-red-500 mt-4 ms-16">
+    </p>
+
+    <form th:hx-post="@{/budgets}"
+          th:object="${budgetCreateRequest}"
+          class="w-1/2 mt-10 ms-16">
+
+        <div th:replace="~{budgets/fragments/budget_inputs :: campos}"></div>
+
+        <button type="submit"
+                class="mt-8 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-100 text-blue-800 hover:bg-blue-200 focus:outline-none focus:bg-blue-200">
+            Cadastrar
+        </button>
+
+    </form>
+
+</main>
+
+</body>
+</html>
