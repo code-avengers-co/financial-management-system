@@ -136,7 +136,7 @@ public class BudgetController {
         budgetService.delete(id);
 
         attributes.addFlashAttribute(
-                "message", "Orçamento excluído com sucesso");
+                "message", "Orçamento removido com sucesso");
 
         return "redirect:htmx:location:/budgets";
     }
