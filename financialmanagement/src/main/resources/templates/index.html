@@ -67,7 +67,9 @@
                 </div>
             </div>
         </div>
-    </div><!-- Orçamentos -->
+    </div>
+
+    <!-- Orçamentos -->
     <h4 class="text-lg md:text-xl mt-10 ms-16">Orçamentos do mês</h4>
 
     <div class="flex flex-col md:w-2/3 ms-16 mt-4 gap-4">
@@ -87,16 +89,25 @@
                 </p>
             </div>
 
-            <p class="text-sm text-gray-500 mt-2">
-                Gasto:
-                <span th:text="${#numbers.formatCurrency(budgetExpenses.get(budget.categoryId))}">
-                    R$ 0,00
-                </span>
-            </p>
+            <div class="flex justify-between items-center mt-2">
+                <p class="text-sm text-gray-500">
+                    Gasto:
+                    <span th:text="${#numbers.formatCurrency(budget.spentAmount) + ' (' + budget.percentage + '%)'}">
+                        R$ 0,00 (0%)
+                    </span>
+                </p>
+
+                <p th:text="${budget.status.description}"
+                   th:classappend="${budget.status.name() == 'EXCEEDED'} ? 'text-red-700' : (${budget.status.name() == 'NEAR_LIMIT'} ? 'text-yellow-700' : 'text-green-700')"
+                   class="text-sm font-semibold">
+                    Dentro do limite
+                </p>
+            </div>
 
             <div class="w-full bg-gray-200 rounded-full h-3 mt-3">
-                <div class="bg-blue-600 h-3 rounded-full"
-                    th:style="'width:' + (${budgetExpenses.get(budget.categoryId).multiply(100).divide(budget.limitAmount, 0, T(java.math.RoundingMode).DOWN).min(T(java.math.BigDecimal).valueOf(100L))}) + '%'">
+                <div th:classappend="${budget.status.name() == 'EXCEEDED'} ? 'bg-red-600' : (${budget.status.name() == 'NEAR_LIMIT'} ? 'bg-yellow-500' : 'bg-green-600')"
+                     class="h-3 rounded-full"
+                     th:style="'width:' + ${budget.percentage > 100 ? 100 : budget.percentage} + '%'">
                 </div>
             </div>
 

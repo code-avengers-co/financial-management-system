@@ -8,7 +8,10 @@ public record BudgetResponse(
         Integer budgetMonth,
         Integer budgetYear,
         Long categoryId,
-        String categoryName
+        String categoryName,
+        BigDecimal spentAmount,
+        int percentage,
+        BudgetStatus status
 ) {
-    
+
 }

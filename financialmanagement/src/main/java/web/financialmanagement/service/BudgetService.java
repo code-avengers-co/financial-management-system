@@ -9,6 +9,7 @@ import web.financialmanagement.common.exception.EntidadeNaoEncontradaException;
 import web.financialmanagement.dto.budget.BudgetCreateRequest;
 import web.financialmanagement.dto.budget.BudgetResponse;
 import web.financialmanagement.dto.budget.BudgetSearchRequest;
+import web.financialmanagement.dto.budget.BudgetStatus;
 import web.financialmanagement.dto.budget.BudgetUpdateRequest;
 import web.financialmanagement.model.Budget;
 import web.financialmanagement.model.User;
@@ -16,19 +17,25 @@ import web.financialmanagement.model.Category;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Service 
 public class BudgetService {
     private final BudgetRepository budgetRepository;
     private final CategoryRepository categoryRepository;
     private final UserService userService;
+    private final TransactionService transactionService;
 
     public BudgetService(
             BudgetRepository budgetRepository,
             CategoryRepository categoryRepository,
-            UserService userService) {
+            UserService userService,
+            TransactionService transactionService) {
         this.budgetRepository = budgetRepository;
         this.categoryRepository = categoryRepository;
         this.userService = userService;
+        this.transactionService = transactionService;
     }
 
 
@@ -207,14 +214,39 @@ public class BudgetService {
 
 
     private BudgetResponse toResponse(Budget budget) {
+        BigDecimal spent = transactionService.calculateTotalExpenses(
+                budget.getCategory(), budget.getBudgetMonth(), budget.getBudgetYear());
+
         return new BudgetResponse(
                 budget.getId(),
                 budget.getLimitAmount(),
                 budget.getBudgetMonth(),
                 budget.getBudgetYear(),
                 budget.getCategory().getId(),
-                budget.getCategory().getName()
+                budget.getCategory().getName(),
+                spent,
+                calculatePercentage(spent, budget.getLimitAmount()),
+                calculateStatus(spent, budget.getLimitAmount())
         );
+    }
+
+    private int calculatePercentage(BigDecimal spent, BigDecimal limit) {
+        return spent.multiply(BigDecimal.valueOf(100))
+                .divide(limit, 0, RoundingMode.DOWN)
+                .intValue();
+    }
+
+    private BudgetStatus calculateStatus(BigDecimal spent, BigDecimal limit) {
+        if (spent.compareTo(limit) > 0) {
+            return BudgetStatus.EXCEEDED;
+        }
+
+        if (spent.multiply(BigDecimal.valueOf(100))
+                .compareTo(limit.multiply(BigDecimal.valueOf(80))) >= 0) {
+            return BudgetStatus.NEAR_LIMIT;
+        }
+
+        return BudgetStatus.WITHIN_LIMIT;
     }
 
 
